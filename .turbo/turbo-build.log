@@ -1,0 +1,29 @@
+[?25l[2J[m[1m[Hyarn run v1.22.19[22m
+]0;C:\WINDOWS\system32\cmd.exe[?25h[2m$ next build[22m[K
+ [33m[1m⚠[m Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+[?25l  [38;2;173;127;168m[1m▲ Next.js 14.2.5[m
+  - Environments: .env[8;1H[?25h [37m[1m [m Creating an optimized production build ...
+ [32m[1m✓[m Compiled successfully
+ [37m[1m [m Linting and checking validity of types  [36m.[?25l[m [37m[1m [m Linting and checking validity of types  [36m..[K[113C[m [37m[1m [m Linting and checking validity of types  [36m...[K[112C[m [37m[1m [m Linting and checking validity of types  [36m.[K[114C[m [37m[1m [m Linting and checking validity of types  [36m..[K[113C[m [37m[1m [m Linting and checking validity of types  [36m...[K[112C[m [37m[1m [m Linting and checking validity of types  [36m.[K[114C[m [37m[1m [m Linting and checking validity of types  [36m..[K[113C[m [37m[1m [m Linting and checking validity of types  [36m...[K[112C[m [37m[1m [m Linting and checking validity of types  [36m.[K[114C[m [37m[1m [m Linting and checking validity of types  [36m..[K[113C[m [37m[1m [m Linting and checking validity of types  [36m...[K[112C[m [37m[1m [m Linting and checking validity of types  [36m.[K[114C[m [37m[1m [m Linting and checking validity of types  [36m..[K[113C[m [37m[1m [m Linting and checking validity of types  [36m...[K[112C[m [32m[1m✓[m Linting and checking validity of types[K
+ [37m[1m [m Collecting page data  [36m.[m [37m[1m [m Collecting page data  [36m..[K[131C[m [37m[1m [m Collecting page data  [36m...[K[130C[m [32m[1m✓[m Collecting page data[K
+[?25h [37m[1m [m Generating static pages (0/10)  [36m[    ][?25l[m [37m[1m [m Generating static pages (0/10)  [36m[=   ][K[117C[m [32m[1m✓[m Generating static pages (10/10)[K[?25h
+ [37m[1m [m Finalizing page optimization  [36m. [37m[1m [m Collecting build traces  [36m.[?25l[m [37m[1m [m Collecting build traces  [36m..[K[128C[m [37m[1m [m Collecting build traces  [36m...[K[127C[m [37m[1m [m Collecting build traces  [36m.[K[129C[m [37m[1m [m Collecting build traces  [36m..[K[128C[m [37m[1m [m Collecting build traces  [36m...[K[127C[m [37m[1m [m Collecting build traces  [36m.[K[129C[m [37m[1m [m Collecting build traces  [36m..[K[128C[m [37m[1m [m Collecting build traces  [36m...[K[127C[m [37m[1m [m Collecting build traces  [36m.[K[129C[m [37m[1m [m Collecting build traces  [36m..[K[128C[m [37m[1m [m Collecting build traces  [36m...[K[127C[m [32m[1m✓[m Collecting build traces[K[?25h
+ [32m[1m✓[m Finalizing page optimization[K
+
+[4mRoute (app)[24m[30X[4m[30CSize[24m     [4mFirst Load JS[24m[K
+┌ ○ /                                    49.8 kB[37m[1m[9C181 kB[m[K
+├ ○ /_not-found                          902 B[37m[1m[10C88.6 kB[m[K
+├ ○ /agenda                              2.14 kB[37m[1m[9C140 kB[m[K
+├ ○ /agendamento                         3.94 kB[37m[1m[9C148 kB[m[K
+├ ○ /agendamento/sucesso                 3.1 kB[37m[1m[10C135 kB[m[K
+├ ○ /entrar                              5.55 kB[37m[1m[9C105 kB[m[K
+└ ○ /reserva                             1.43 kB[37m[1m[9C139 kB[m[K
++ First Load JS shared by all[37m[1m[12C87.7 kB[m[K
+  ├ chunks/1dd3208c-20e1dc93d86670cb.js  54 kB
+  ├ chunks/286-8aa827bf0b4d40a9.js       31.7 kB
+  └ other shared chunks (total)          2.01 kB
+
+
+○  (Static)  prerendered as static content
+
+Done in 18.51s.[K
