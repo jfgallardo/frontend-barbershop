@@ -11,6 +11,7 @@ export default function FormUsuario() {
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { usuario, entrar, registrar } = useUsuario();
 
@@ -25,6 +26,7 @@ export default function FormUsuario() {
   }, [usuario, router, params]);
 
   async function submeter() {
+    setLoading(true);
     if (modo === "entrar") {
       await entrar({ telefone, senha });
     } else {
@@ -38,6 +40,7 @@ export default function FormUsuario() {
     setTelefone("");
     setSenha("");
     setModo("entrar");
+    setLoading(false);
   }
 
   return (
@@ -84,8 +87,18 @@ export default function FormUsuario() {
               className="bg-zinc-900 px-4 py-2 rounded"
             />
             <div className="flex gap-5">
-              <button onClick={submeter} className="button bg-green-600 flex-1">
-                {modo === "entrar" ? "Entrar" : "Cadastrar"}
+              <button
+                onClick={submeter}
+                className={`button bg-green-600 flex-1 ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
+              >
+                {loading
+                  ? "Cargando..."
+                  : modo === "entrar"
+                  ? "Entrar"
+                  : "Cadastrar"}
               </button>
               <button
                 onClick={() => {
