@@ -28,7 +28,7 @@ export default function DiaInput(props: DiaInputProps) {
           props.dataMudou(data); // Llamar a la función de cambio de datos
         }}
         className={`
-                    flex-1 flex flex-col items-center gap-2 py-4 cursor-pointer
+                    flex-1 flex flex-col items-center gap-1 py-4 cursor-pointer
                     ${selecionado ? "bg-yellow-400 text-black" : "text-zinc-400"}
                 `}
       >
@@ -54,9 +54,9 @@ export default function DiaInput(props: DiaInputProps) {
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-2">
       <span className="text-sm uppercase text-zinc-400">Dias Disponíveis</span>
-      <div className="flex flex-nowrap gap-3 bg-zinc-950 rounded-lg overflow-hidden">
+      <div className="flex flex-nowrap gap-3 px-1 bg-zinc-950 rounded-lg overflow-x-auto touch-pan-x"> 
         {Array.from({ length: 7 })
           .map((_, i) => new Date(DataUtils.hoje().getTime() + 86400000 * (i + 2))) // Cambiado para iniciar desde +2 días
           .filter((date) => date.getDay() !== 0)
@@ -69,3 +69,4 @@ export default function DiaInput(props: DiaInputProps) {
     </div>
   );
 }
+
