@@ -45,7 +45,7 @@ const servicos: Servico[] = [
     id: 5,
     nome: "BARBA + PIGMENTAÇÃO",
     descricao:
-      "Barba bem definida com pigmentação para realçar o contorno e garantir um visual mais cheio e uniforme.",
+      "Barba bem feita e pigmentada para realçar o contorno e garantir um visual mais cheio e uniforme.",
     preco: 30,
     qtdeSlots: 1,
     imagemURL: "/servicos/combo.jpg",
@@ -55,8 +55,8 @@ const servicos: Servico[] = [
     id: 6,
     nome: "CORTE + BARBA + PIGMENTAÇÃO",
     descricao:
-      "Corte impecável, barba definida e pigmentação para um visual completo e marcante.",
-    preco: 60,
+      "Corte impecável, barba definida e pigmentação de cabelo e barba para um visual completo e marcante.",
+    preco: 70,
     qtdeSlots: 1,
     imagemURL: "/servicos/combo.jpg",
     profissionais: [],
@@ -69,6 +69,16 @@ const servicos: Servico[] = [
     preco: 50,
     qtdeSlots: 1,
     imagemURL: "/servicos/dia-de-noivo.jpg",
+    profissionais: [],
+  },
+  {
+    id: 8,
+    nome: "CORTE + PIGMENTAÇÃO",
+    descricao:
+      "Corte preciso e pigmentação de cabelo impecável para um visual sofisticado.",
+    preco: 60,
+    qtdeSlots: 1,
+    imagemURL: "/servicos/combo.jpg",
     profissionais: [],
   },
 ];
