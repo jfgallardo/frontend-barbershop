@@ -14,6 +14,7 @@ export default function AgendaProfissionalItem(
   props: AgendaProfissionalItemProps
 ) {
   const { agendamento } = props;
+ 
 
   function open(phone: number) {
     const whatsappUrl = `https://wa.me/${phone}`;
@@ -21,23 +22,23 @@ export default function AgendaProfissionalItem(
   }
 
   return (
-    <div className="flex items-center gap-6 bg-zinc-800 rounded-md p-7">
+    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 bg-zinc-800 rounded-md p-4 sm:p-7">
       <IconCalendar size={60} stroke={1} />
       <div className="flex-1 flex flex-col gap-2">
-        <span className="text-xl">{agendamento.usuario.nome}</span>
+        <span className="text-lg sm:text-xl">{agendamento.usuario.nome}</span>
         <div
           className="flex items-center gap-2 hover:cursor-pointer"
           onClick={() => open(+agendamento.usuario.telefone)}
         >
           <IconBrandWhatsapp stroke={1} />
-          <span className="text-zinc-400 text-sm">
+          <span className="text-zinc-400 text-xs sm:text-sm">
             {agendamento.usuario.telefone}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <IconCalendar stroke={1} />
 
-          <span className="text-zinc-400 text-sm">
+          <span className="text-zinc-400 text-xs sm:text-sm">
             {DataUtils.formatarDataEHora(new Date(agendamento.data))}
           </span>
         </div>

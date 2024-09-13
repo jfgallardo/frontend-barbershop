@@ -91,10 +91,13 @@ export function ProvedorAgendamento({
     async function (data: Date, profissional: Profissional): Promise<string[]> {
       try {
         if (!data || !profissional) return [];
-        const dtString = `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, "0")}-${String(data.getDate()).padStart(2, "0")}`;
+        const dtString = `${data.getFullYear()}-${String(
+          data.getMonth() + 1
+        ).padStart(2, "0")}-${String(data.getDate()).padStart(2, "0")}`;
         const ocupacao = await httpGet(
           `agendamentos/ocupacao/${profissional!.id}/${dtString}`
         );
+
         return ocupacao ?? [];
       } catch (e) {
         return [];

@@ -11,8 +11,10 @@ export interface HorariosInputProps {
 }
 
 export default function HorariosInput(props: HorariosInputProps) {
+    
     const [horaHover, setHoraHover] = useState<string | null>(null)
     const { horariosOcupados } = useAgendamento()
+
     const { manha, tarde, noite } = AgendaUtils.horariosDoDia()
 
     const horaSelecionada = props.data.toLocaleTimeString('pt-BR', {
@@ -28,10 +30,12 @@ export default function HorariosInput(props: HorariosInputProps) {
     }
 
     function renderizarHorario(horario: string) {
+        
         const periodo = obterPeriodo(horaHover, 1)
         const temHorarios = periodo.length === 1
         const destacarHora = temHorarios && periodo.includes(horario)
         const periodoSelecionado = obterPeriodo(horaSelecionada, 1)
+
         const selecionado =
             periodoSelecionado.length === 1 && periodoSelecionado.includes(horario)
         const naoSelecionavel = !temHorarios && periodo.includes(horario)
