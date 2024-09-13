@@ -11,7 +11,7 @@ export default function DataInput(props: DataInputProps) {
     const { data, quantidadeDeSlots, dataMudou } = props
 
     return (
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col space-y-5 container">
             <DiaInput data={data} dataMudou={dataMudou} />
             <HorariosInput data={data} qtdeHorarios={quantidadeDeSlots} dataMudou={dataMudou} />
         </div>

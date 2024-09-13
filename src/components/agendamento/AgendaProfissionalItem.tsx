@@ -17,7 +17,7 @@ export default function AgendaProfissionalItem(
  
 
   function open(phone: number) {
-    const whatsappUrl = `https://wa.me/${phone}`;
+    const whatsappUrl = `https://wa.me/55${phone}`;
     window.open(whatsappUrl, "_blank");
   }
 
