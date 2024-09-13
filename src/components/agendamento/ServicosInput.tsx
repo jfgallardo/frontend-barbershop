@@ -1,6 +1,6 @@
 import { Profissional, Servico } from "@/data";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useAPI from "@/data/hooks/useAPI";
 
 export interface ServicosInputProps {
@@ -29,7 +29,11 @@ function Opcao(props: {
       <div
         className={`
                     py-2 w-full h-full text-center text-xs
-                    ${props.selecionado ? "text-black bg-green-400 font-semibold" : "text-zinc-400 font-light bg-zinc-900 "}
+                    ${
+                      props.selecionado
+                        ? "text-black bg-green-400 font-semibold"
+                        : "text-zinc-400 font-light bg-zinc-900 "
+                    }
                 `}
       >
         {props.servico.nome}
@@ -43,16 +47,16 @@ export default function ServicosInput(props: ServicosInputProps) {
   const [servicos, setServicos] = useState<Servico[]>();
   const { httpGet } = useAPI();
 
-  useEffect(() => {
-    carregarServicos();
-  });
-
-  async function carregarServicos() {
+  const carregarServicos = useCallback(async () => {
     const idProfissional = props.profissional?.id;
 
     const servicos = await httpGet(`servico/por-profesional/${idProfissional}`);
     setServicos(servicos);
-  }
+  }, [httpGet, props.profissional?.id]);
+
+  useEffect(() => {
+    carregarServicos();
+  }, [carregarServicos]);
 
   function alternarMarcacaoServico(servico: Servico) {
     const servicoSelecionado = props.servicos.find((s) => s.id === servico.id);
