@@ -13,7 +13,7 @@ export default function Landing() {
   return (
     <div>
       <TituloSlogan />
-      <Advertisement />
+      {/* <Advertisement /> */}
 
       <ContainerComBackground imagem="/banners/servicos.webp">
         <NossosServicos />
