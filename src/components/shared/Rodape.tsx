@@ -72,7 +72,7 @@ export default function Rodape() {
               <span>{new Date().getFullYear()}</span>
             </div>
             <span className="hidden md:inline-block">-</span>
-            <span>Todos os direitos reservados</span>
+            <span>Direitos reservados - BARBER SHOP SAMUEL FRANCISCO</span>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import AgendaProfissionalItem from "@/components/agendamento/AgendaProfissionalI
 import useAPI from "@/data/hooks/useAPI";
 import useUsuario from "@/data/hooks/useUsuario";
 import { Agendamento } from "@/data";
+import Loading from "@/components/shared/Loading";
 
 export interface Events {
   title: string;
@@ -16,7 +17,7 @@ export interface Events {
 }
 
 export default function PaginaAgenda() {
-  const { data, agendamentos, alterarData, excluirAgendamento } =
+  const { data, agendamentos, alterarData, excluirAgendamento, loading } =
     useProfissionalAgenda();
 
   const { usuario } = useUsuario();
@@ -86,7 +87,9 @@ export default function PaginaAgenda() {
         </div>
         <DiaInput data={data} dataMudou={alterarData} />
 
-        {agendamentos.length > 0 ? (
+        {loading ? (
+          <Loading text="Carregando agendamentos..." />
+        ) : agendamentos.length > 0 ? (
           <div className="flex flex-col gap-4">
             {agendamentos
               .sort(

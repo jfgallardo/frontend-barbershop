@@ -8,15 +8,18 @@ export default function useUsuarioAgenda() {
   const { httpGet, httpDelete } = useAPI();
   const [data, setData] = useState<Date>(new Date());
   const [agendas, setAgendas] = useState<Agendamento[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const carregarAgendas = useCallback(async () => {
     if (!usuario) return;
+    setLoading(true);
     setAgendas([]);
     const dtString = data.toISOString().slice(0, 10);
     const agendas = await httpGet(
       `agendamentos/usuario/${usuario.id}/${dtString}`
     );
     setAgendas(agendas);
+    setLoading(false);
   }, [httpGet, usuario, data]);
 
   useEffect(() => {
@@ -33,5 +36,6 @@ export default function useUsuarioAgenda() {
     agendas,
     alterarData: setData,
     excluirAgendamento,
+    loading,
   };
 }

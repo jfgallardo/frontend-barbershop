@@ -4,9 +4,11 @@ import DiaInput from "@/components/agendamento/DiaInput";
 import Cabecalho from "@/components/shared/Cabecalho";
 import { IconCalendarCancel } from "@tabler/icons-react";
 import AgendaUsuarioItem from "@/components/agendamento/AgendaUsuarioItem";
+import Loading from "@/components/shared/Loading";
 
 export default function PaginaReserva() {
-  const { data, agendas, excluirAgendamento, alterarData } = useUsuarioAgenda();
+  const { data, agendas, excluirAgendamento, alterarData, loading } =
+    useUsuarioAgenda();
 
   return (
     <div className="flex flex-col bg-zinc-900">
@@ -18,7 +20,9 @@ export default function PaginaReserva() {
         <div className="container flex flex-col gap-10 py-16">
           <DiaInput data={data} dataMudou={alterarData} />
 
-          {agendas.length > 0 ? (
+          {loading ? (
+            <Loading text="Carregando agendamentos..." />
+          ) : agendas.length > 0 ? (
             <div className="flex flex-col gap-4">
               {agendas
                 .sort(

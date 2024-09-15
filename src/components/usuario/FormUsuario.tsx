@@ -95,9 +95,9 @@ export default function FormUsuario() {
                 disabled={loading}
               >
                 {loading
-                  ? "Cargando..."
+                  ? "Carregando..."
                   : modo === "entrar"
-                  ? "Entrar"
+                  ? "Conecte-se"
                   : "Cadastrar"}
               </button>
               <button
