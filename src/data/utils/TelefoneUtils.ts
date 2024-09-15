@@ -9,7 +9,7 @@ export default class TelefoneUtils {
 
     static desformatar(telefone: string): string {
         if (!telefone) return ''
-        return telefone.replace(/\D/g, '').slice(0, 11)
+        return telefone.replace(/\D/g, '').slice(0, 11);
     }
 
     private static substituirNumeros(telefone: string, ref: string): string {

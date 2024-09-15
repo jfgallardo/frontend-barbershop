@@ -1,5 +1,5 @@
 import { DataUtils } from "@/data";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 export interface DiaInputProps {
   data: Date;
@@ -7,26 +7,12 @@ export interface DiaInputProps {
 }
 
 export default function DiaInput(props: DiaInputProps) {
-  const [diaSelecionado, setDiaSelecionado] = useState<Date | null>(null); // Estado para el día seleccionado
-
-  useEffect(() => {
-    const primerDiaVisible = Array.from({ length: 7 })
-      .map((_, i) => new Date(DataUtils.hoje().getTime() + 86400000 * i))
-      .find((date) => date.getDay() !== 0); // Encontrar el primer día visible
-    if (primerDiaVisible) {
-      setDiaSelecionado(primerDiaVisible); // Establecer el primer día visible como seleccionado
-    }
-  }, []);
-
   function renderizarDia(data: Date) {
-    const selecionado = diaSelecionado?.getDate() === data.getDate(); // Usar el estado para determinar si está seleccionado
+    const selecionado = props.data?.getDate() === data.getDate(); // Usar el estado para determinar si está seleccionado
 
     return (
       <div
-        onClick={() => {
-          setDiaSelecionado(data); // Actualizar el estado al hacer clic
-          props.dataMudou(data); // Llamar a la función de cambio de datos
-        }}
+        onClick={() => props.dataMudou(data)}
         className={`
                     flex-1 flex flex-col items-center gap-1 py-4 cursor-pointer
                     ${

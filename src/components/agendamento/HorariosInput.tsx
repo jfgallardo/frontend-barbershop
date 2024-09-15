@@ -43,6 +43,9 @@ export default function HorariosInput(props: HorariosInputProps) {
             periodo.includes(horario) && periodo.some((h) => horariosOcupados.includes(h))
         const ocupado = horariosOcupados.includes(horario)
 
+        // Agregar condición para ocultar horarios ocupados
+        if (ocupado) return null;
+
         return (
             <div
                 key={horario}
@@ -52,7 +55,7 @@ export default function HorariosInput(props: HorariosInputProps) {
                         'bg-yellow-400': destacarHora,
                         'bg-red-500': naoSelecionavel || periodoBloqueado,
                         'text-white bg-green-500': selecionado,
-                        'cursor-not-allowed bg-zinc-800': ocupado,
+                        'cursor-not-allowed bg-zinc-800 ': ocupado,
                     }
                 )}
                 onMouseEnter={(_) => setHoraHover(horario)}
