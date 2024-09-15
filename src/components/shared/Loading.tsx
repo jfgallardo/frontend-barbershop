@@ -5,7 +5,7 @@ export interface LoadingProps {
 }
 
 export default function Loading(props: LoadingProps) {
-  const { text = "Cargando..." } = props;
+  const { text = "Carregando..." } = props;
   return (
     <div className="flex justify-center items-center h-full">
       <div

@@ -29,7 +29,9 @@ export default function DiaInput(props: DiaInputProps) {
         }}
         className={`
                     flex-1 flex flex-col items-center gap-1 py-4 cursor-pointer
-                    ${selecionado ? "bg-yellow-400 text-black" : "text-zinc-400"}
+                    ${
+                      selecionado ? "bg-yellow-400 text-black" : "text-zinc-400"
+                    }
                 `}
       >
         <div className="flex items-center p-1">
@@ -56,9 +58,9 @@ export default function DiaInput(props: DiaInputProps) {
   return (
     <div className="flex flex-col gap-2">
       <span className="text-sm uppercase text-zinc-400">Dias Disponíveis</span>
-      <div className="flex flex-nowrap gap-3 px-1 bg-zinc-950 rounded-lg overflow-x-auto touch-pan-x"> 
+      <div className="flex flex-nowrap gap-3 px-1 bg-zinc-950 rounded-lg overflow-x-auto touch-pan-x">
         {Array.from({ length: 7 })
-          .map((_, i) => new Date(DataUtils.hoje().getTime() + 86400000 * (i + 2))) // Cambiado para iniciar desde +2 días
+          .map((_, i) => new Date(DataUtils.hoje().getTime() + 86400000 * i))
           .filter((date) => date.getDay() !== 0)
           .map((date) => (
             <React.Fragment key={date.toISOString()}>
@@ -69,4 +71,3 @@ export default function DiaInput(props: DiaInputProps) {
     </div>
   );
 }
-

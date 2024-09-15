@@ -88,13 +88,18 @@ export default function PaginaAgenda() {
 
         {agendamentos.length > 0 ? (
           <div className="flex flex-col gap-4">
-            {agendamentos.map((agendamento) => (
-              <AgendaProfissionalItem
-                key={agendamento.id}
-                agendamento={agendamento}
-                excluir={excluirAgendamento}
-              />
-            ))}
+            {agendamentos
+              .sort(
+                (a, b) =>
+                  new Date(a.data).getTime() - new Date(b.data).getTime()
+              )
+              .map((agendamento) => (
+                <AgendaProfissionalItem
+                  key={agendamento.id}
+                  agendamento={agendamento}
+                  excluir={excluirAgendamento}
+                />
+              ))}
           </div>
         ) : (
           <div className="flex flex-col items-center">

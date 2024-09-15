@@ -20,13 +20,18 @@ export default function PaginaReserva() {
 
           {agendas.length > 0 ? (
             <div className="flex flex-col gap-4">
-              {agendas.map((agendas) => (
-                <AgendaUsuarioItem
-                  key={agendas.id}
-                  agendamento={agendas}
-                  excluir={excluirAgendamento}
-                />
-              ))}
+              {agendas
+                .sort(
+                  (a, b) =>
+                    new Date(a.data).getTime() - new Date(b.data).getTime()
+                )
+                .map((agendas) => (
+                  <AgendaUsuarioItem
+                    key={agendas.id}
+                    agendamento={agendas}
+                    excluir={excluirAgendamento}
+                  />
+                ))}
             </div>
           ) : (
             <div className="flex flex-col items-center">
