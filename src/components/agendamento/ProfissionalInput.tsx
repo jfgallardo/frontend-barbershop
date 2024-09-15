@@ -2,6 +2,7 @@ import { Profissional } from "@/data";
 import Image from "next/image";
 import useAPI from "@/data/hooks/useAPI";
 import { useCallback, useEffect, useState } from "react";
+import Loading from "../shared/Loading";
 
 export interface ProfissionalInputProps {
   profissional: Profissional | null;
@@ -17,7 +18,9 @@ function Opcao(props: {
     <div
       className={`
                 flex flex-col items-center cursor-pointer select-none rounded-lg border w-[150px] h-[180px]
-                ${props.selecionado ? "border-green-400" : "border-none"} overflow-hidden
+                ${
+                  props.selecionado ? "border-green-400" : "border-none"
+                } overflow-hidden
             `}
       onClick={() => props.onClick(props.profissional)}
     >
@@ -30,7 +33,11 @@ function Opcao(props: {
       <div
         className={`
                     py-2 w-full h-full text-center text-xs
-                    ${props.selecionado ? "text-black bg-green-400 font-semibold" : "text-zinc-400 font-light bg-zinc-900 "}
+                    ${
+                      props.selecionado
+                        ? "text-black bg-green-400 font-semibold"
+                        : "text-zinc-400 font-light bg-zinc-900 "
+                    }
                 `}
       >
         {props.profissional.nome.split(" ")[0]}
@@ -41,11 +48,14 @@ function Opcao(props: {
 
 export default function ProfissionalInput(props: ProfissionalInputProps) {
   const [profissionais, setProfissionais] = useState<Profissional[]>();
+  const [loading, setLoading] = useState(false);
   const { httpGet } = useAPI();
 
   const carregarProfissionais = useCallback(async () => {
+    setLoading(true);
     const profissionais = await httpGet("profissionai");
     setProfissionais(profissionais);
+    setLoading(false);
   }, [httpGet]);
 
   useEffect(() => {
@@ -57,16 +67,20 @@ export default function ProfissionalInput(props: ProfissionalInputProps) {
       <span className="text-sm uppercase text-zinc-400">
         Profissionais Disponíveis
       </span>
-      <div className="grid grid-cols-2 md:grid-cols-3 self-start gap-5">
-        {profissionais?.map((profissional) => (
-          <Opcao
-            key={profissional.id}
-            profissional={profissional}
-            onClick={props.profissionalMudou}
-            selecionado={profissional.id === props.profissional?.id}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <Loading text="Carregando os profissionais..." />
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 self-start gap-5">
+          {profissionais?.map((profissional) => (
+            <Opcao
+              key={profissional.id}
+              profissional={profissional}
+              onClick={props.profissionalMudou}
+              selecionado={profissional.id === props.profissional?.id}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

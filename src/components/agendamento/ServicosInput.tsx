@@ -2,6 +2,7 @@ import { Profissional, Servico } from "@/data";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import useAPI from "@/data/hooks/useAPI";
+import Loading from "../shared/Loading";
 
 export interface ServicosInputProps {
   servicos: Servico[];
@@ -46,12 +47,15 @@ export default function ServicosInput(props: ServicosInputProps) {
   const { servicosMudou } = props;
   const [servicos, setServicos] = useState<Servico[]>();
   const { httpGet } = useAPI();
+  const [loading, setLoading] = useState(false);
 
   const carregarServicos = useCallback(async () => {
+    setLoading(true);
     const idProfissional = props.profissional?.id;
 
     const servicos = await httpGet(`servico/por-profesional/${idProfissional}`);
     setServicos(servicos);
+    setLoading(false);
   }, [httpGet, props.profissional?.id]);
 
   useEffect(() => {
@@ -72,16 +76,22 @@ export default function ServicosInput(props: ServicosInputProps) {
       <span className="text-sm uppercase text-zinc-400">
         Serviços Disponíveis
       </span>
-      <div className="grid grid-cols-3 self-start gap-5">
-        {servicos?.map((servico) => (
-          <Opcao
-            key={servico.id}
-            servico={servico}
-            onClick={alternarMarcacaoServico}
-            selecionado={props.servicos.some((serv) => serv.id === servico.id)}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <Loading text="Carregando os serviços..." />
+      ) : (
+        <div className="grid grid-cols-3 self-start gap-5">
+          {servicos?.map((servico) => (
+            <Opcao
+              key={servico.id}
+              servico={servico}
+              onClick={alternarMarcacaoServico}
+              selecionado={props.servicos.some(
+                (serv) => serv.id === servico.id
+              )}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
