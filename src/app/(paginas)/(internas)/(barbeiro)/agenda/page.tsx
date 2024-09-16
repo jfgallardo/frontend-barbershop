@@ -23,6 +23,7 @@ export default function PaginaAgenda() {
   const { usuario } = useUsuario();
   const { httpGet } = useAPI();
 
+
   function convertirFecha(fecha: Date) {
     const date = new Date(fecha);
     const year = date.getUTCFullYear();
@@ -77,7 +78,7 @@ export default function PaginaAgenda() {
         descricao="Veja e gerencie seus agendamentos."
       />
       <div className="container flex flex-col gap-10 py-16">
-        <div className="flex items-center w-full justify-end">
+        <div className="flex items-center w-full justify-end space-x-3">
           <button
             onClick={getAllEvents}
             className="bg-blue-500 hover:bg-blue-700 px-2.5 py-1 rounded-full"

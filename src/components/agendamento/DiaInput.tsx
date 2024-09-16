@@ -46,7 +46,9 @@ export default function DiaInput(props: DiaInputProps) {
       <span className="text-sm uppercase text-zinc-400">Dias Disponíveis</span>
       <div className="flex flex-nowrap gap-3 px-1 bg-zinc-950 rounded-lg overflow-x-auto touch-pan-x">
         {Array.from({ length: 7 })
-          .map((_, i) => new Date(DataUtils.hoje().getTime() + 86400000 * i))
+          .map(
+            (_, i) => new Date(DataUtils.hoje().getTime() + 86400000 * (i + 1))
+          )
           .filter((date) => date.getDay() !== 0)
           .map((date) => (
             <React.Fragment key={date.toISOString()}>
