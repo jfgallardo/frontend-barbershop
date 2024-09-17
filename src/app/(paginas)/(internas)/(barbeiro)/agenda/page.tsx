@@ -8,6 +8,9 @@ import useAPI from "@/data/hooks/useAPI";
 import useUsuario from "@/data/hooks/useUsuario";
 import { Agendamento } from "@/data";
 import Loading from "@/components/shared/Loading";
+import DialogComponent from "@/components/shared/Dialog";
+import SelectComponent from "@/components/shared/Select";
+import { DatePickerComponent } from "@/components/shared/DatePicker";
 
 export interface Events {
   title: string;
@@ -22,7 +25,6 @@ export default function PaginaAgenda() {
 
   const { usuario } = useUsuario();
   const { httpGet } = useAPI();
-
 
   function convertirFecha(fecha: Date) {
     const date = new Date(fecha);
@@ -71,6 +73,24 @@ export default function PaginaAgenda() {
     downloadICS(events);
   }
 
+  function footer() {
+    return (
+      <button className="bg-blue-500 hover:bg-blue-700 px-3 py-2">
+        Agendar
+      </button>
+    );
+  }
+
+  const handleSelect = (value: string | null) => {
+    console.log("Valor seleccionado:", value);
+  };
+
+  const items = [
+    { value: "light", label: "Light" },
+    { value: "dark", label: "Dark" },
+    { value: "system", label: "System" },
+  ];
+
   return (
     <div className="flex flex-col bg-zinc-900">
       <Cabecalho
@@ -79,9 +99,23 @@ export default function PaginaAgenda() {
       />
       <div className="container flex flex-col gap-10 py-16">
         <div className="flex items-center w-full justify-end space-x-3">
+          <DialogComponent
+            button="Agendar"
+            title="Agendar cliente"
+            footerContent={footer()}
+          >
+            <div className="flex flex-col items-center space-y-5">
+              <SelectComponent
+                placeholder="Clientes"
+                onSelect={handleSelect}
+                items={items}
+              />
+              <DatePickerComponent />
+            </div>
+          </DialogComponent>
           <button
             onClick={getAllEvents}
-            className="bg-blue-500 hover:bg-blue-700 px-2.5 py-1 rounded-full"
+            className="bg-blue-500 hover:bg-blue-700 px-2.5 py-1"
           >
             Download ICS
           </button>

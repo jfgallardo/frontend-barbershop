@@ -13,7 +13,6 @@ import { EmblaOptionsType } from "embla-carousel";
 
 export default function Landing() {
   const OPTIONS: EmblaOptionsType = {};
-  const SLIDE_COUNT = 10;
   const SLIDES = [
     "/apertura/1.jpg",
     "/apertura/2.jpg",
