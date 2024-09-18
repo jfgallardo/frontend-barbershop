@@ -6,11 +6,12 @@ import Cabecalho from "@/components/shared/Cabecalho";
 import AgendaProfissionalItem from "@/components/agendamento/AgendaProfissionalItem";
 import useAPI from "@/data/hooks/useAPI";
 import useUsuario from "@/data/hooks/useUsuario";
-import { Agendamento } from "@/data";
+import { Agendamento, Usuario } from "@/data";
 import Loading from "@/components/shared/Loading";
 import DialogComponent from "@/components/shared/Dialog";
 import SelectComponent from "@/components/shared/Select";
 import { DatePickerComponent } from "@/components/shared/DatePicker";
+import { useCallback, useEffect, useState } from "react";
 
 export interface Events {
   title: string;
@@ -25,6 +26,25 @@ export default function PaginaAgenda() {
 
   const { usuario } = useUsuario();
   const { httpGet } = useAPI();
+  const [usuarios, setUsuarios] = useState([]);
+
+  const getUsers = useCallback(async () => {
+    try {
+      const data = await httpGet("usuario");
+      const usuarios = data.map((item: Usuario) => ({
+        value: item.id,
+        label: item.nome,
+      }));
+
+      setUsuarios(usuarios);
+    } catch (error) {
+      console.error("Error al cargar usuarios:", error);
+    }
+  }, [httpGet]);
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
 
   function convertirFecha(fecha: Date) {
     const date = new Date(fecha);
@@ -85,12 +105,6 @@ export default function PaginaAgenda() {
     console.log("Valor seleccionado:", value);
   };
 
-  const items = [
-    { value: "light", label: "Light" },
-    { value: "dark", label: "Dark" },
-    { value: "system", label: "System" },
-  ];
-
   return (
     <div className="flex flex-col bg-zinc-900">
       <Cabecalho
@@ -108,7 +122,7 @@ export default function PaginaAgenda() {
               <SelectComponent
                 placeholder="Clientes"
                 onSelect={handleSelect}
-                items={items}
+                items={usuarios}
               />
               <DatePickerComponent />
             </div>

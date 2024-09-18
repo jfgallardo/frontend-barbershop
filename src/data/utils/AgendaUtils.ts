@@ -3,7 +3,7 @@ export default class AgendaUtils {
     return {
       manha: this.gerarHorarios([9, 10, 11, 12]),
       tarde: this.gerarHorarios([13, 14, 15, 16, 17, 18, 19]),
-      noite: this.gerarHorarios([18, 19, 20, 21, 22]),
+      noite: this.gerarHorarios([19, 20, 21, 22]),
     };
   }
 
@@ -17,7 +17,8 @@ export default class AgendaUtils {
 
   private static gerarHorarios(horas: number[]) {
     let horarioAtual = horas[0];
-    let minutos = horarioAtual === 18 ? 50 : 0;
+    let minutos = horarioAtual === 18 || horarioAtual === 13 ? 50 : 
+                  horarioAtual === 19 ? 40 : 0;
 
     return horas.reduce((horarios, _, index) => {
       if (index > 0 && horarios.length > 0) {
