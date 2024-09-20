@@ -9,6 +9,7 @@ interface ContextoAgendamentoProps {
   data: Date;
   horariosOcupados: string[];
   reservas: string[];
+  loading: boolean;
   duracaoTotal(): string;
   precoTotal(): number;
   quantidadeDeSlots(): number;
@@ -30,6 +31,7 @@ export function ProvedorAgendamento({
   const [profissional, setProfissional] = useState<Profissional | null>(null);
   const [servicos, setServicos] = useState<Servico[]>([]);
   const [data, setData] = useState<Date>(DataUtils.hoje());
+  const [loading, setLoading] = useState(false);
 
   const { usuario } = useUsuario();
   const [horariosOcupados, setHorariosOcupados] = useState<string[]>([]);
@@ -89,6 +91,7 @@ export function ProvedorAgendamento({
 
   const obterHorariosOcupados = useCallback(
     async function (data: Date, profissional: Profissional): Promise<string[]> {
+      setLoading(true);
       try {
         if (!data || !profissional) return [];
         const dtString = `${data.getFullYear()}-${String(
@@ -97,7 +100,7 @@ export function ProvedorAgendamento({
         const ocupacao = await httpGet(
           `agendamentos/ocupacao/${profissional!.id}/${dtString}`
         );
-
+        setLoading(false);
         return ocupacao ?? [];
       } catch (e) {
         return [];
@@ -139,6 +142,7 @@ export function ProvedorAgendamento({
         servicos,
         horariosOcupados,
         reservas,
+        loading,
         duracaoTotal,
         precoTotal,
         selecionarData,

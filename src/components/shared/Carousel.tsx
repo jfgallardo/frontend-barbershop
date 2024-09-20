@@ -59,7 +59,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                   src={slide}
                   alt={`Slide ${index + 1}`}
                   fill={true} 
-                  objectFit="cover"
+                  className="bg-cover"
                   quality={100}
                 />
               </div>

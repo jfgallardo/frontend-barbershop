@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
 import { AgendaUtils, DataUtils } from "@/data";
 import useAgendamento from "@/data/hooks/useAgendamento";
+import Loading from "../shared/Loading";
 
 export interface HorariosInputProps {
   data: Date;
@@ -12,7 +13,7 @@ export interface HorariosInputProps {
 
 export default function HorariosInput(props: HorariosInputProps) {
   const [horaHover, setHoraHover] = useState<string | null>(null);
-  const { horariosOcupados } = useAgendamento();
+  const { horariosOcupados, loading } = useAgendamento();
 
   const { manha, tarde, noite } = AgendaUtils.horariosDoDia();
 
@@ -21,7 +22,7 @@ export default function HorariosInput(props: HorariosInputProps) {
     minute: "2-digit",
   });
 
-  const isSabado = props.data.getDay() === 6; // Verificar si es sábado
+  const isSabado = props.data.getDay() === 6;
 
   function obterPeriodo(horario: string | null, qtde: number) {
     if (!horario) return [];
@@ -34,10 +35,40 @@ export default function HorariosInput(props: HorariosInputProps) {
     return horarios.slice(indice, indice + qtde);
   }
 
+  function eliminateSpecificSchedules(hourCheck: string, data: Date) {
+    const schedulesBeDeleted =
+      process.env.NEXT_PUBLIC_SCHEDULES_ELIMINATED?.split(",").map((item) => {
+        const [fecha, hora] = item.split("/");
+        return { fecha, hora };
+      });
+
+    return schedulesBeDeleted?.some((h) => {
+      return (
+        h.fecha == data.toISOString().split("T")[0] && h.hora === hourCheck
+      );
+    });
+  }
+
+  function pastSchedules(hour: string, data: Date) {
+    const hrAtual = new Date().toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const dtAtual = new Date().toISOString().split("T")[0];
+
+    return hrAtual < hour && dtAtual === data.toISOString().split("T")[0];
+  }
+
   function renderizarHorario(horario: string) {
-    if (isSabado && horario > '17:00') {        
-        return [];
-    }   
+    if (
+      (isSabado && horario > "17:00") ||
+      eliminateSpecificSchedules(horario, props.data) ||
+      pastSchedules(horario, props.data)
+    ) {
+      return [];
+    }
+
     const periodo = obterPeriodo(horaHover, 1);
     const temHorarios = periodo.length === 1;
     const destacarHora = temHorarios && periodo.includes(horario);
@@ -81,11 +112,7 @@ export default function HorariosInput(props: HorariosInputProps) {
             "text-zinc-400 font-semibold": ocupado,
           })}
         >
-          {naoSelecionavel || periodoBloqueado || ocupado ? (
-            <IconX size={18} className="text-white" />
-          ) : (
-            horario
-          )}
+          {horario}
         </span>
       </div>
     );
@@ -95,22 +122,26 @@ export default function HorariosInput(props: HorariosInputProps) {
       <span className="text-sm uppercase text-zinc-400">
         Horários Disponíveis
       </span>
-      <div className="flex flex-col gap-3 select-none">
-        <span className="text-xs uppercase text-zinc-400">Manhã</span>
-        <div className="grid grid-cols-8 gap-1">
-          {manha.map(renderizarHorario)}
-        </div>
+      {loading ? (
+        <Loading text="Carregando horarios..." />
+      ) : (
+        <div className="flex flex-col gap-3 select-none">
+          <span className="text-xs uppercase text-zinc-400">Manhã</span>
+          <div className="grid grid-cols-8 gap-1">
+            {manha.map(renderizarHorario)}
+          </div>
 
-        <span className="text-xs uppercase text-zinc-400">Tarde</span>
-        <div className="grid grid-cols-8 gap-1">
-          {tarde.map(renderizarHorario)}
-        </div>
+          <span className="text-xs uppercase text-zinc-400">Tarde</span>
+          <div className="grid grid-cols-8 gap-1">
+            {tarde.map(renderizarHorario)}
+          </div>
 
-        <span className="text-xs uppercase text-zinc-400">Noite</span>
-        <div className="grid grid-cols-8 gap-1">
-          {noite.map(renderizarHorario)}
+          <span className="text-xs uppercase text-zinc-400">Noite</span>
+          <div className="grid grid-cols-8 gap-1">
+            {noite.map(renderizarHorario)}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
 import { Usuario } from "@/data";
 import useUsuario from "@/data/hooks/useUsuario";
 import { useRouter } from "next/navigation";
+import DialogComponent from "./Dialog";
 
 export interface MenuUsuarioProps {
   usuario: Usuario;
@@ -18,6 +19,12 @@ export interface MenuUsuarioProps {
 export default function MenuUsuario(props: MenuUsuarioProps) {
   const { usuario, sair } = useUsuario();
   const router = useRouter();
+
+  function footer() {
+    return (
+      <button className="bg-blue-500 hover:bg-blue-700 px-3 py-2">Mudar</button>
+    );
+  }
 
   return props.usuario ? (
     <DropdownMenu>
@@ -34,7 +41,7 @@ export default function MenuUsuario(props: MenuUsuarioProps) {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-      {!usuario?.barbeiro && (
+        {!usuario?.barbeiro && (
           <DropdownMenuItem onClick={() => router.push("/reserva")}>
             Minha Agenda
           </DropdownMenuItem>
@@ -49,6 +56,9 @@ export default function MenuUsuario(props: MenuUsuarioProps) {
             Meus Servicios
           </DropdownMenuItem>
         )}
+        <DropdownMenuItem onClick={() => router.push("/senha")}>
+          Mudar Senha
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={sair}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

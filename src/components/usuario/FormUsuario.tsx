@@ -5,6 +5,7 @@ import { TelefoneUtils } from "@/data";
 import useUsuario from "@/data/hooks/useUsuario";
 import Logo from "@/components/shared/Logo";
 import Image from "next/image";
+import { notifyError, notifyInfo, notifySuccess } from "../shared/Notify";
 
 export default function FormUsuario() {
   const [modo, setModo] = useState<"entrar" | "cadastrar">("entrar");
@@ -13,10 +14,28 @@ export default function FormUsuario() {
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [latitude, setLatitude] = useState<number>(0);
+  const [longitude, setLongitude] = useState<number>(0);
+
   const { usuario, entrar, registrar } = useUsuario();
 
   const params = useSearchParams();
   const router = useRouter();
+
+  function useGeolocation() {
+    if (typeof navigator !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }
+
+  useGeolocation();
+
+  function showPosition(position: GeolocationPosition) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
 
   useEffect(() => {
     if (usuario?.telefone) {
@@ -29,8 +48,20 @@ export default function FormUsuario() {
     setLoading(true);
     if (modo === "entrar") {
       await entrar({ telefone, senha });
+    } else if (latitude !== 0 && longitude !== 0) {
+      const response: any = await registrar(
+        { nome, telefone, senha },
+        latitude,
+        longitude
+      );
+
+      if (response.statusCode === 400 || response.statusCode === 500) {
+        notifyError(response.message);
+      } else {
+        notifySuccess("Usuário registrado com sucesso");
+      }
     } else {
-      await registrar({ nome, telefone, senha });
+      notifyInfo("Permiso de geolocalización no concedido o no disponible. Impossível cadastrar.");
     }
     limparFormulario();
   }

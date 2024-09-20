@@ -11,7 +11,11 @@ export interface ContextoUsuarioProps {
   carregando: boolean;
   usuario: Usuario | null;
   entrar: (usuario: Partial<Usuario>) => Promise<void>;
-  registrar: (usuario: Usuario) => Promise<void>;
+  registrar: (
+    usuario: Usuario,
+    latitude: number,
+    longitude: number
+  ) => Promise<void>;
   sair: () => void;
 }
 
@@ -33,8 +37,15 @@ export function ProvedorUsuario({ children }: any) {
     }
   }
 
-  async function registrar(usuario: Usuario) {
-    await httpPost("/usuario/registrar", usuario);
+  async function registrar(
+    usuario: Usuario,
+    latitude: number,
+    longitude: number
+  ) {
+    return await httpPost(
+      `/usuario/registrar?latitude=${latitude}&longitude=${longitude}`,
+      usuario
+    );
   }
 
   function sair() {

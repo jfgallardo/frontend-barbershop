@@ -24,12 +24,11 @@ export default class DataUtils {
 
   static formatarDataEHora(data: Date): string {
     const day = data.getUTCDate().toString().padStart(2, "0");
-    const month = (data.getUTCMonth() + 1).toString().padStart(2, "0"); // Los meses van de 0 a 11
+    const month = (data.getUTCMonth() + 1).toString().padStart(2, "0");
     const year = data.getUTCFullYear();
     const hours = data.getUTCHours().toString().padStart(2, "0");
     const minutes = data.getUTCMinutes().toString().padStart(2, "0");
-    const seconds = data.getUTCSeconds().toString().padStart(2, "0");
 
-    return `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+    return `${day}/${month}/${year}, ${hours}:${minutes}`;
   }
 }

@@ -21,7 +21,7 @@ export default function DialogComponent(
   return (
     <Dialog>
       <DialogTrigger>
-        <span className="underline underline-offset-2">{props.button}</span>
+        <span>{props.button}</span>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
