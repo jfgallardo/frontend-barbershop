@@ -13,9 +13,12 @@ export default function useProfissionalAgenda() {
   const carregarAgendamentos = useCallback(async () => {
     if (!usuario) return;
     setLoading(true);
-    const dtString = data.toISOString().slice(0, 10);
+    const localDate = new Date(
+      data.getTime() - data.getTimezoneOffset() * 60000
+    );
+    const formattedDate = localDate.toISOString().slice(0, 10);
     const agendamentos = await httpGet(
-      `agendamentos/${usuario.id}/${dtString}`
+      `agendamentos/${usuario.id}/${formattedDate}`
     );
     setAgendamentos(agendamentos);
     setLoading(false);

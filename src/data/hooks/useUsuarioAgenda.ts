@@ -14,9 +14,12 @@ export default function useUsuarioAgenda() {
     if (!usuario) return;
     setLoading(true);
     setAgendas([]);
-    const dtString = data.toISOString().slice(0, 10);
+    const localDate = new Date(
+      data.getTime() - data.getTimezoneOffset() * 60000
+    );
+    const formattedDate = localDate.toISOString().slice(0, 10);
     const agendas = await httpGet(
-      `agendamentos/usuario/${usuario.id}/${dtString}`
+      `agendamentos/usuario/${usuario.id}/${formattedDate}`
     );
     setAgendas(agendas);
     setLoading(false);

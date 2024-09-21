@@ -82,9 +82,10 @@ export default function PaginaSenha() {
                 <Loading text="Mudando senha, aguarde..." />
               ) : (
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-400 disabled:cursor-not-allowed"
                   type="button"
                   onClick={changePassword}
+                  disabled={!senhaAtual || !senhaNova}
                 >
                   Mudar Senha
                 </button>
