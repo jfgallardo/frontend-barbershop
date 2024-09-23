@@ -57,7 +57,7 @@ export default function HorariosInput(props: HorariosInputProps) {
 
     const dtAtual = new Date().toISOString().split("T")[0];
 
-    return hrAtual < hour && dtAtual === data.toISOString().split("T")[0];
+    return hrAtual > hour && dtAtual === data.toISOString().split("T")[0];
   }
 
   function renderizarHorario(horario: string) {
