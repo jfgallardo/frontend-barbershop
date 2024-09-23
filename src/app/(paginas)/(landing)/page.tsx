@@ -56,9 +56,9 @@ export default function Landing() {
       <TituloSlogan />
       {/* <Advertisement /> */}
 
-      <ContainerComBackground imagem="/banners/clientes.webp">
+      {/* <ContainerComBackground imagem="/banners/clientes.webp">
         <EmblaCarousel slides={SLIDES} options={OPTIONS} />
-      </ContainerComBackground>
+      </ContainerComBackground> */}
 
       <ContainerComBackground imagem="/banners/servicos.webp">
         <NossosServicos />
