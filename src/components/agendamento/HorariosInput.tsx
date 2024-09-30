@@ -55,8 +55,8 @@ export default function HorariosInput(props: HorariosInputProps) {
       minute: "2-digit",
     });
 
-    const dtAtual = new Date().getDate(); // Obtener el día del mes
-    return hrAtual > hour && dtAtual === data.getDate(); // Comparar con el día del mes
+    const dtAtual = new Date().getDate();
+    return hrAtual > hour && dtAtual === data.getDate();
   }
 
   function renderizarHorario(horario: string) {
