@@ -55,9 +55,8 @@ export default function HorariosInput(props: HorariosInputProps) {
       minute: "2-digit",
     });
 
-    const dtAtual = new Date().toISOString().split("T")[0];
-
-    return hrAtual > hour && dtAtual === data.toISOString().split("T")[0];
+    const dtAtual = new Date().getDate(); // Obtener el día del mes
+    return hrAtual > hour && dtAtual === data.getDate(); // Comparar con el día del mes
   }
 
   function renderizarHorario(horario: string) {
@@ -73,7 +72,6 @@ export default function HorariosInput(props: HorariosInputProps) {
     const temHorarios = periodo.length === 1;
     const destacarHora = temHorarios && periodo.includes(horario);
     const periodoSelecionado = obterPeriodo(horaSelecionada, 1);
-    
 
     const selecionado =
       periodoSelecionado.length === 1 && periodoSelecionado.includes(horario);

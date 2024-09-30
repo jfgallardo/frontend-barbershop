@@ -14,13 +14,13 @@ export default function MenuSuperior() {
       <nav className="flex items-center justify-between container">
         <Logo />
 
-        {/* <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3">
           {usuario ? (
             <MenuUsuario usuario={usuario} />
           ) : (
             <Link href="/entrar">Entrar</Link>
           )}
-        </div> */}
+        </div>
       </nav>
     </header>
   );
