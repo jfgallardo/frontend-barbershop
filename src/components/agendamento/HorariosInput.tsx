@@ -73,6 +73,7 @@ export default function HorariosInput(props: HorariosInputProps) {
     const temHorarios = periodo.length === 1;
     const destacarHora = temHorarios && periodo.includes(horario);
     const periodoSelecionado = obterPeriodo(horaSelecionada, 1);
+    
 
     const selecionado =
       periodoSelecionado.length === 1 && periodoSelecionado.includes(horario);

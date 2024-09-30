@@ -13,13 +13,15 @@ export interface DialogComponentProps {
   title: string;
   description?: string;
   footerContent?: React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export default function DialogComponent(
   props: DialogComponentProps & { children?: React.ReactNode }
 ) {
   return (
-    <Dialog>
+    <Dialog open={props.open} onOpenChange={props.onOpenChange}>
       <DialogTrigger>
         <span>{props.button}</span>
       </DialogTrigger>

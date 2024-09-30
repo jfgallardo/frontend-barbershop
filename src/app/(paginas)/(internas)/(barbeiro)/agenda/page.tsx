@@ -8,10 +8,8 @@ import useAPI from "@/data/hooks/useAPI";
 import useUsuario from "@/data/hooks/useUsuario";
 import { Agendamento, Usuario } from "@/data";
 import Loading from "@/components/shared/Loading";
-import DialogComponent from "@/components/shared/Dialog";
-import SelectComponent from "@/components/shared/Select";
-import { DatePickerComponent } from "@/components/shared/DatePicker";
-import { useCallback, useEffect, useState } from "react";
+import AgendarCliente from "@/components/profissional/AgendarCliente";
+import CadastrarCliente from "@/components/profissional/CadastrarCliente";
 
 export interface Events {
   title: string;
@@ -23,28 +21,6 @@ export interface Events {
 export default function PaginaAgenda() {
   const { data, agendamentos, alterarData, excluirAgendamento, loading } =
     useProfissionalAgenda();
-
-  const { usuario } = useUsuario();
-  const { httpGet } = useAPI();
-  const [usuarios, setUsuarios] = useState([]);
-
-  const getUsers = useCallback(async () => {
-    try {
-      const data = await httpGet("usuario");
-      const usuarios = data.map((item: Usuario) => ({
-        value: item.id,
-        label: item.nome,
-      }));
-
-      setUsuarios(usuarios);
-    } catch (error) {
-      console.error("Error al cargar usuarios:", error);
-    }
-  }, [httpGet]);
-
-  useEffect(() => {
-    getUsers();
-  }, [getUsers]);
 
   function convertirFecha(fecha: Date) {
     const date = new Date(fecha);
@@ -76,9 +52,7 @@ export default function PaginaAgenda() {
   }
 
   async function getAllEvents() {
-    const agendas = await httpGet(`agendamentos/getAll/${usuario?.id}`);
-
-    const events = agendas.map((item: Agendamento) => {
+    const events = agendamentos.map((item: Agendamento) => {
       const fechaConvertida = convertirFecha(item.data);
       const servicios = item.servicos.map((item) => item.nome).join(", ");
 
@@ -93,18 +67,6 @@ export default function PaginaAgenda() {
     downloadICS(events);
   }
 
-  function footer() {
-    return (
-      <button className="bg-blue-500 hover:bg-blue-700 px-3 py-2">
-        Agendar
-      </button>
-    );
-  }
-
-  const handleSelect = (value: string | null) => {
-    console.log("Valor seleccionado:", value);
-  };
-
   return (
     <div className="flex flex-col bg-zinc-900">
       <Cabecalho
@@ -113,23 +75,15 @@ export default function PaginaAgenda() {
       />
       <div className="container flex flex-col gap-10 py-16">
         <div className="flex items-center w-full justify-end space-x-3">
-          <DialogComponent
-            button="Agendar"
-            title="Agendar cliente"
-            footerContent={footer()}
-          >
-            <div className="flex flex-col items-center space-y-5">
-              <SelectComponent
-                placeholder="Clientes"
-                onSelect={handleSelect}
-                items={usuarios}
-              />
-              <DatePickerComponent />
-            </div>
-          </DialogComponent>
+          <div className="bg-green-500 hover:bg-green-700 px-2.5 py-1">
+            <CadastrarCliente />
+          </div>
+          <div className="bg-blue-500 hover:bg-blue-700 px-2.5 py-1">
+            <AgendarCliente />
+          </div>
           <button
             onClick={getAllEvents}
-            className="bg-blue-500 hover:bg-blue-700 px-2.5 py-1"
+            className="bg-cyan-500 hover:bg-cyan-700 px-2.5 py-1"
           >
             Download ICS
           </button>

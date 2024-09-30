@@ -42,7 +42,7 @@ export default function TituloSlogan() {
             Transformamos visual, definimos estilo!
           </p>
 
-          {!usuario?.barbeiro && (
+          {/* {!usuario?.barbeiro && (
             <button
               onClick={() => router.push("/agendamento")}
               className="
@@ -53,7 +53,7 @@ export default function TituloSlogan() {
             >
               Agendar Agora
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

@@ -13,8 +13,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePickerComponent() {
+export function DatePickerComponent(
+  props: any & { onSelect: (value: string | null) => void }
+) {
   const [date, setDate] = React.useState<Date>();
+
+  function selectedValue(params: Date) {
+    setDate(params);
+    props.onSelect(params);
+  }
 
   return (
     <Popover>
@@ -27,14 +34,25 @@ export function DatePickerComponent() {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? (
+            `${date.toISOString().split("T")[0]}`
+          ) : (
+            <span>Pick a date</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
+          disabled={(date) => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const currentDate = new Date(date);
+            currentDate.setHours(0, 0, 0, 0);
+            return currentDate < today || currentDate.getDay() === 0;
+          }}
           selected={date}
-          onSelect={setDate}
+          onSelect={(value) => selectedValue(value as Date)}
           initialFocus
         />
       </PopoverContent>

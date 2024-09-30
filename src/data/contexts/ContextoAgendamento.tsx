@@ -16,7 +16,7 @@ interface ContextoAgendamentoProps {
   selecionarProfissional(profissional: Profissional): void;
   selecionarServicos(servicos: Servico[]): void;
   selecionarData(data: Date): void;
-  agendar(): Promise<void>;
+  agendar(param?: Usuario | null): Promise<void>;
 }
 
 export const ContextoAgendamento = createContext(
@@ -68,11 +68,11 @@ export function ProvedorAgendamento({
     return totalDeSlots;
   }
 
-  async function agendar() {
+  async function agendar(param?: Usuario) {
     if (!usuario?.telefone) return;
 
     await httpPost("agendamentos", {
-      usuario: usuario,
+      usuario: param ? param : usuario,
       data: data!,
       profissional: profissional!,
       servicos: servicos,
@@ -94,12 +94,15 @@ export function ProvedorAgendamento({
       setLoading(true);
       try {
         if (!data || !profissional) return [];
+
         const dtString = `${data.getFullYear()}-${String(
           data.getMonth() + 1
         ).padStart(2, "0")}-${String(data.getDate()).padStart(2, "0")}`;
+
         const ocupacao = await httpGet(
           `agendamentos/ocupacao/${profissional!.id}/${dtString}`
         );
+
         setLoading(false);
         return ocupacao ?? [];
       } catch (e) {

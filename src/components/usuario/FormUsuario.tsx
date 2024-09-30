@@ -22,20 +22,17 @@ export default function FormUsuario() {
   const params = useSearchParams();
   const router = useRouter();
 
-  function useGeolocation() {
+  function showPosition(position: GeolocationPosition) {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  }
+  useEffect(() => {
     if (typeof navigator !== "undefined" && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-  }
-
-  useGeolocation();
-
-  function showPosition(position: GeolocationPosition) {
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
-  }
+  }, []);
 
   useEffect(() => {
     if (usuario?.telefone) {
@@ -61,7 +58,9 @@ export default function FormUsuario() {
         notifySuccess("Usuário registrado com sucesso");
       }
     } else {
-      notifyInfo("Permiso de geolocalización no concedido o no disponible. Impossível cadastrar.");
+      notifyInfo(
+        "Permiso de geolocalización no concedido o no disponible. Impossível cadastrar."
+      );
     }
     limparFormulario();
   }
