@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ✂️💈 Frontend Barbershop 💈✂️
 
-## Getting Started
+## 📌 Descripción
+Frontend para una 💈 que permite a los 👥 reservar ⏳ y obtener ℹ️ sobre los ✂️ ofrecidos. Combina una 🖥️ atractiva con 🔥 intuitivas para mejorar la 🎯 del 🧑‍💼.
 
-First, run the development server:
+## 🚀 Características
+- 📅 Reserva de ⏳ online.
+- ℹ️ detallada de los ✂️.
+- 📱💻 Diseño 📏 para 📲 y 🖥️.
+- 🔗 con API para 📊 reservas.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tecnologías utilizadas
+- **⚛️ Next.js** - 🏗️ de React para el 🖥️.
+- **🎨 TailwindCSS** - Para 👕 rápida y ⚡.
+- **🟦 TypeScript** - 🔒 seguro y 📖 del código.
+- **💾 NestJS (en backend)** - Para la API de 📅 reservas.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Instalación y ejecución
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📝 Requisitos previos
+- 🌍 Node.js v16+
+- 📦 npm o yarn
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 🛠️ Pasos
+1. 🖥️ Clona el repo:
+   ```sh
+   git clone https://github.com/jfgallardo/frontend-barbershop.git
+   cd frontend-barbershop
+   ```
+2. 📦 Instala las 📚:
+   ```sh
+   npm install
+   ```
+3. ▶️ Inicia el 🏗️ en modo 🛠️:
+   ```sh
+   npm run dev
+   ```
+4. 🌍 Accede en tu 🖥️ a `http://localhost:3000`.
 
-## Learn More
+## 🤝 Contribución
+Las 🙌 son bienvenidas. Para 👥:
+1. 🔀 Haz un fork del repo.
+2. 🎨 Crea una rama con tu 🆕: `git checkout -b feature/nueva-funcionalidad`
+3. ✅ Realiza un commit con tus ✍️: `git commit -m "Agregada nueva funcionalidad"`
+4. 📩 Envía un pull request.
 
-To learn more about Next.js, take a look at the following resources:
+## 📜 Licencia
+Este 🏗️ está bajo la 📜 MIT. Consulta el 📄 `LICENSE` para más detalles.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
